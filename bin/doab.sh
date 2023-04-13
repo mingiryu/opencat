@@ -1,0 +1,1 @@
+wget https://directory.doabooks.org/download-export?format=onix -O ../data/doab.xml
