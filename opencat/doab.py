@@ -1,3 +1,5 @@
+import polars as pl
+
 from enum import Enum
 from lxml import etree
 
@@ -86,7 +88,7 @@ class Product:
         )
         if doi is None:
             return None
-        if doi.startswith('http'):
+        if doi.startswith("http"):
             # XXX: Parse the URL
             return None
 
@@ -148,3 +150,13 @@ class Product:
             year=self.year,
             url=self.url,
         )
+
+
+def build(path="../data/doab.parquet"):
+    products = get_products()
+    df = pl.DataFrame((Product(product).to_dict() for product in products))
+    df.write_parquet(path)
+
+
+if __name__ == "__main__":
+    build()
