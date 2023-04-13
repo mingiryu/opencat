@@ -65,6 +65,7 @@ class Product:
 
     @property
     def isbn(self):
+        # TODO: Standardize ISBN (9783937816098, 978-612-5069-6...)
         return find_text(
             self.root, './/onix:ProductIdentifier[onix:ProductIDType="15"]/onix:IDValue'
         )
@@ -112,7 +113,10 @@ class Product:
 
     @property
     def url(self):
-        return find_text(self.root, ".//onix:WebsiteLink")
+        url = find_text(self.root, ".//onix:WebsiteLink")
+
+        if url.startswith('http'):
+            return url
 
     def to_dict(self):
         return dict(
