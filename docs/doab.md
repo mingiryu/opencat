@@ -1,3 +1,5 @@
+DOAB provides multiple file options, but they are not all the same. TSV only have `first_author` and CSV requires additional parsing for array fields such as authors. ONIX provides separate `keynames` and `forenames` with much more readable fields.
+
 Resources
 - [DOAB | Metadata for Libraries and Aggregators](https://www.doabooks.org/en/resources/metadata-harvesting-and-content-dissemination)
 - [ONIX 3.0 for Google Play Books](https://support.google.com/books/partner/answer/6374180?hl=en&ref_topic=3273107&sjid=5388543654964950561-NA#)
