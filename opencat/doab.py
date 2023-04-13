@@ -81,9 +81,14 @@ class Product:
 
     @property
     def doi(self):
-        return find_text(
+        doi = find_text(
             self.root, './/onix:ProductIdentifier[onix:ProductIDType="06"]/onix:IDValue'
         )
+        if doi is None:
+            return None
+        if doi.startswith('http'):
+            # XXX: Parse the URL
+            return None
 
     @property
     def title(self):
