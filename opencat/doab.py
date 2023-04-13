@@ -1,7 +1,14 @@
 from enum import Enum
+from lxml import etree
 
 
 NAMESPACES = {"onix": "http://ns.editeur.org/onix/3.0/reference"}
+
+
+def get_products(path="../data/doab.xml"):
+    tree = etree.parse(path)
+    root = tree.getroot()
+    return root.findall(".//onix:Product", namespaces=NAMESPACES)
 
 
 def find_text(root, tag, namespaces=NAMESPACES):
@@ -13,6 +20,7 @@ def find_text(root, tag, namespaces=NAMESPACES):
 class ContributorRole(Enum):
     author = "A01"
     editor = "B01"
+    other = "Z99"
 
 
 class Contributor:
@@ -77,8 +85,10 @@ class Product:
 
     @property
     def contributors(self):
-        for node in self.root.findall(".//onix:Contributor", namespaces=NAMESPACES):
-            yield Contributor(node).to_dict()
+        return [
+            Contributor(node).to_dict()
+            for node in self.root.findall(".//onix:Contributor", namespaces=NAMESPACES)
+        ]
 
     @property
     def description(self):
@@ -111,7 +121,7 @@ class Product:
             doi=self.doi,
             title=self.title,
             subtitle=self.subtitle,
-            contributors=tuple(self.contributors),
+            contributors=self.contributors,
             description=self.description,
             publisher=self.publisher,
             year=self.year,
