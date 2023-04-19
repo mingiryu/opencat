@@ -1,8 +1,9 @@
 import polars as pl
 
-from isbnlib import ean13
 from enum import Enum
+from isbnlib import ean13
 from lxml import etree
+from nameparser import HumanName
 
 
 NAMESPACES = {"onix": "http://ns.editeur.org/onix/3.0/reference"}
@@ -44,12 +45,20 @@ class Contributor:
         return find_text(self.root, ".//onix:NamesBeforeKey")
 
     def to_dict(self):
-        # TODO: Split keynames when forenames isn't present.
+        forenames = self.forenames
+        keynames = self.keynames
+
+        if keynames and not forenames:
+            name = HumanName(keynames)
+
+            keynames = name.last
+            forenames = f"{name.first} {name.middle}".strip()
+
         return dict(
             position=self.position,
             role=self.role,
-            keynames=self.keynames,
-            forenames=self.forenames,
+            keynames=keynames,
+            forenames=forenames,
         )
 
 

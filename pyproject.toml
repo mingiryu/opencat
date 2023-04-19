@@ -10,6 +10,8 @@ python = "^3.10"
 polars = {extras = ["all"], version = "^0.17.2"}
 lxml = "^4.9.2"
 isbnlib = "^3.10.13"
+nameparser = "^1.1.2"
+pyarrow = "^11.0.0"
 
 
 [tool.poetry.group.dev.dependencies]

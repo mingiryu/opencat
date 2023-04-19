@@ -1697,6 +1697,18 @@ files = [
 ]
 
 [[package]]
+name = "nameparser"
+version = "1.1.2"
+description = "A simple Python module for parsing human names into their individual components."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "nameparser-1.1.2-py2.py3-none-any.whl", hash = "sha256:ea2e01d1d9d04c0648be230f161f27316a1b5be431a1cc64e8799fac548fb3bc"},
+    {file = "nameparser-1.1.2.tar.gz", hash = "sha256:f4b6c7c1048d528bd6aa2b27cf42a06447d2b31e45a95b20449513078f1d86ef"},
+]
+
+[[package]]
 name = "nbclassic"
 version = "0.5.5"
 description = "Jupyter Notebook as a Jupyter Server extension."
@@ -3173,4 +3185,4 @@ test = ["mypy", "pre-commit", "pytest", "pytest-asyncio", "websockets (>=10.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "49b7bc3dac00b1c06982d27436d875f0b03886681af853175ccc98bae86d9266"
+content-hash = "a48bbda4c92be6a9d215a5dbc75374b183c533448e0c40926d59eafa926b3204"
