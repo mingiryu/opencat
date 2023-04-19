@@ -6,11 +6,8 @@ from lxml import etree
 
 NAMESPACES = {"onix": "http://ns.editeur.org/onix/3.0/reference"}
 
-
-def get_products(path="../data/doab.xml"):
-    tree = etree.parse(path)
-    root = tree.getroot()
-    return root.findall(".//onix:Product", namespaces=NAMESPACES)
+SRC = "../data/doab.xml"
+DST = "../data/doab.parquet"
 
 
 def find_text(root, tag, namespaces=NAMESPACES):
@@ -66,14 +63,16 @@ class Product:
     @property
     def doab(self):
         return find_text(
-            self.root, './/onix:ProductIdentifier[onix:ProductIDType="01"]/onix:IDValue'
+            self.root,
+            './/onix:ProductIdentifier[onix:ProductIDType="01"]/onix:IDValue',
         )
 
     @property
     def isbn(self):
         # TODO: Standardize ISBN (9783937816098, 978-612-5069-6...)
         isbn = find_text(
-            self.root, './/onix:ProductIdentifier[onix:ProductIDType="15"]/onix:IDValue'
+            self.root,
+            './/onix:ProductIdentifier[onix:ProductIDType="15"]/onix:IDValue',
         )
         if isbn is None:
             return None
@@ -84,7 +83,8 @@ class Product:
     @property
     def doi(self):
         doi = find_text(
-            self.root, './/onix:ProductIdentifier[onix:ProductIDType="06"]/onix:IDValue'
+            self.root,
+            './/onix:ProductIdentifier[onix:ProductIDType="06"]/onix:IDValue',
         )
         if doi is None:
             return None
@@ -118,13 +118,15 @@ class Product:
     @property
     def publisher(self):
         return find_text(
-            self.root, './/onix:Publisher[onix:PublishingRole="01"]/onix:PublisherName'
+            self.root,
+            './/onix:Publisher[onix:PublishingRole="01"]/onix:PublisherName',
         )
 
     @property
     def year(self):
         return find_text(
-            self.root, './/onix:PublishingDate[onix:PublishingDateRole="01"]/onix:Date'
+            self.root,
+            './/onix:PublishingDate[onix:PublishingDateRole="01"]/onix:Date',
         )
 
     @property
@@ -152,10 +154,12 @@ class Product:
         )
 
 
-def build(path="../data/doab.parquet"):
-    products = get_products()
+def build():
+    tree = etree.parse(SRC)
+    root = tree.getroot()
+    products = root.findall(".//onix:Product", namespaces=NAMESPACES)
     df = pl.DataFrame((Product(product).to_dict() for product in products))
-    df.write_parquet(path)
+    df.write_parquet(DST)
 
 
 if __name__ == "__main__":
