@@ -1,5 +1,6 @@
 import polars as pl
 
+from isbnlib import ean13
 from enum import Enum
 from lxml import etree
 
@@ -76,9 +77,8 @@ class Product:
         )
         if isbn is None:
             return None
-        if "/" in isbn:
-            return None
-        return isbn
+        if isbn and (isbn := ean13(isbn)):
+            return isbn
 
     @property
     def doi(self):
@@ -91,6 +91,7 @@ class Product:
         if doi.startswith("http"):
             # XXX: Parse the URL
             return None
+        return doi
 
     @property
     def title(self):
@@ -148,6 +149,7 @@ class Product:
             subtitle=self.subtitle,
             contributors=self.contributors,
             description=self.description,
+            thumbnail=self.thumbnail,
             publisher=self.publisher,
             year=self.year,
             url=self.url,

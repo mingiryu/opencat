@@ -982,6 +982,18 @@ files = [
 ]
 
 [[package]]
+name = "isbnlib"
+version = "3.10.13"
+description = "Extract, clean, transform, hyphenate and metadata for ISBNs (International Standard Book Number)."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "isbnlib-3.10.13-py2.py3-none-any.whl", hash = "sha256:b6d25850d15d40f6a86a6e138ce06757b3b10f30caf0a6fe5b4bec2f568f9e9b"},
+    {file = "isbnlib-3.10.13.tar.gz", hash = "sha256:4679341f56a0df91c635e838a222ce7f10755cb5bcc9548e3f7a8aff5674d3d4"},
+]
+
+[[package]]
 name = "isoduration"
 version = "20.11.0"
 description = "Operations with ISO 8601 durations"
@@ -3161,4 +3173,4 @@ test = ["mypy", "pre-commit", "pytest", "pytest-asyncio", "websockets (>=10.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "efc94b68ea55d51e6ad4a0d544373bcf3e051a07f485da9b209a4bbf7ed053d8"
+content-hash = "49b7bc3dac00b1c06982d27436d875f0b03886681af853175ccc98bae86d9266"
