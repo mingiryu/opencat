@@ -98,7 +98,7 @@ class Product:
         if doi is None:
             return None
         if not doi.startswith("10.") and "10." in doi:
-            doi = '/'.join(doi.split('/')[-2:])
+            doi = "/".join(doi.split("/")[-2:])
         return doi
 
     @property
